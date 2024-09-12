@@ -1,5 +1,4 @@
 import sys
-
 def plan_cycle(pi, ml, dgr_stfy, max_dgr_stfy):
     global pm
     global pp_info
@@ -59,11 +58,9 @@ def plan_cycle(pi, ml, dgr_stfy, max_dgr_stfy):
     elif lg==1:
         for i in pp_info_index:
             pp_info[i][2] = pi+1
-    
     if dgr_stfy > max_dgr_stfy:
             max_dgr_stfy = dgr_stfy
     return max_dgr_stfy
-
 
 line = sys.stdin.readline()
 a = line.split()
@@ -74,7 +71,6 @@ for i in range(pm):
     line = sys.stdin.readline()
     a = line.split()
     p_info[i] = [int(a[0]), int(a[1]), int(a[2])]
-
 
 max_dgr_stfy = 0
 for i in range(pm):
