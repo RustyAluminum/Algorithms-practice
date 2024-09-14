@@ -1,0 +1,37 @@
+import sys
+
+N,m = map(int,input().split())
+N=N//10
+weight = [[0] * 3 for _ in range(0,m+1)] 
+value = [[0] * 3 for _ in range(0,m+1)] 
+result=[[0]* (N+1) for _ in range(0,m+1)]
+
+for i in range(1,m+1):
+    price, degree, quality = map(int, input().split())
+    price=price//10
+    if quality==0:
+        weight[i][0]=price
+        value[i][0]=price*degree
+    elif weight[quality][1]==0:
+        weight[quality][1]=price
+        value[quality][1]=price*degree
+    else :
+        weight[quality][2]=price
+        value[quality][2]=price*degree
+
+# print(weight,value)
+for i in range(1,m+1):
+    for j in range(N,-1,-1):
+        if j>=weight[i][0]:
+            result[i][j]=max(result[i-1][j],result[i-1][j-weight[i][0]]+value[i][0])
+            if j>=(weight[i][0]+weight[i][1]):
+                result[i][j]=max(result[i][j],result[i-1][j],result[i-1][j-weight[i][0]-weight[i][1]]+value[i][0]+value[i][1])
+                
+            if j>=(weight[i][0]+weight[i][2]):
+                result[i][j]=max(result[i-1][j],result[i][j],result[i-1][j-weight[i][0]-weight[i][2]]+value[i][0]+value[i][2])
+                if j>=(weight[i][0]+weight[i][1]+weight[i][2]):
+                    result[i][j]=max(result[i-1][j],result[i][j],result[i-1][j-weight[i][0]-weight[i][1]-weight[i][2]]+value[i][0]+value[i][1]+value[i][2])
+        else:
+            result[i][j]=result[i-1][j]        
+
+print(result[m][N]*10)
